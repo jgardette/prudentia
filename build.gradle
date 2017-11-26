@@ -45,8 +45,10 @@ dependencies {
   compile "com.fasterxml.jackson.core:jackson-core"
   compile "com.fasterxml.jackson.core:jackson-databind"
   compile "org.jetbrains.kotlin:kotlin-reflect"
+  compile "com.fasterxml.jackson.module:jackson-module-kotlin"
   runtime "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
   runtime "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+  runtime "com.fasterxml.jackson.module:jackson-module-kotlin"
 }
 
 task wrapper(type: Wrapper) {
