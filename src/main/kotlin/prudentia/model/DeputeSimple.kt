@@ -2,7 +2,7 @@ package prudentia.model
 
 import java.util.*
 
-data class Depute(
+data class DeputeSimple(
         var civilite: String?,
         var prenom: String?,
         var nom: String?,
@@ -13,7 +13,7 @@ data class Depute(
         var dateDeces: Date?,
         var professionLibelle: String?,
         var catSocPro: String?,
-        var adresses: List<Adresse>?,
-        var mandats: List<Mandat>?
+        var numberAdresses: Number?,
+        var numberMandats: Number?
 
 )

@@ -58,7 +58,7 @@ data class Mandats(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Profession(
         @JsonProperty("libelleCourant")
-        val libelleCourant: String?,
+        val professionLibelle: String?,
 
         @JsonProperty("socProcINSEE")
         val infoProfessionInsee: InfoProfessionInsee?
@@ -138,7 +138,7 @@ data class Election(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class InfoNaissance(
         @JsonProperty("dateNais")
-        val dateNaissance: String?,
+        val dateNaissance: Date?,
 
         @JsonProperty("depNais")
         val departementNaissance: String?,
@@ -154,7 +154,7 @@ data class InfoNaissance(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Identite(
         @JsonProperty("civ")
-        val civ: String?,
+        val civilite: String?,
 
         @JsonProperty("prenom")
         val prenom: String?,
@@ -184,5 +184,11 @@ data class InfosAdresse(
         val nomRue: String?,
 
         @JsonProperty("ville")
-        val ville: String?
-        )
+        val ville: String?,
+
+        @JsonProperty("valElec")
+        val valeurElectronique: String?,
+
+        @JsonProperty("numeroTelephone")
+        val numeroTelephone: String?
+)
