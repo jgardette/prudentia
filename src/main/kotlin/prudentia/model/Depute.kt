@@ -33,8 +33,10 @@ data class InfoActeur(
         val etatCivil: EtatCivil,
 
         @JsonProperty("mandats")
-        val mandats: Mandats
+        val mandats: Mandats,
 
+        @JsonProperty("profession")
+        val profession: Profession
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -43,7 +45,10 @@ data class EtatCivil(
         val ident: Identite,
 
         @JsonProperty("dateDeces")
-        val dateDeces: Date?
+        val dateDeces: Date?,
+
+        @JsonProperty("infoNaissance")
+        val infoNaissance: InfoNaissance?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -53,10 +58,84 @@ data class Mandats(
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+data class Profession(
+        @JsonProperty("libelleCourant")
+        val libelleCourant: String?,
+
+        @JsonProperty("socProcINSEE")
+        val infoProfessionInsee: InfoProfessionInsee?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class InfoProfessionInsee(
+        @JsonProperty("catSocPro")
+        val catSocPro: String?,
+
+        @JsonProperty("famSocPro")
+        val famSocPro: String?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class InfoMandat(
         @JsonProperty("uid")
-        val uid: String?
+        val uid: String?,
+
+        @JsonProperty("acteurRef")
+        val acteurRef: String?,
+
+        @JsonProperty("dateDebut")
+        val dateDebut: Date?,
+
+        @JsonProperty("dateFin")
+        val dateFin: Date?,
+
+        @JsonProperty("election")
+        val election: Election?
+
+        //FIX%E : Suppleants ko pour le 418 acteur
+        //@JsonProperty("suppleants")
+        //val suppleants: Suppleant?
 )
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Suppleant(
+        @JsonProperty("suppleant")
+        val infoSuppleant: InfoSuppleant?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class InfoLieuMandat(
+        @JsonProperty("departement")
+        val departement: String?,
+
+        @JsonProperty("region")
+        val region: String?,
+
+        @JsonProperty("numDepartement")
+        val numDepartement: String?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class InfoSuppleant(
+        @JsonProperty("dateDebut")
+        val dateDebut: Date?,
+
+        @JsonProperty("dateFin")
+        val dateFin: Date?,
+
+        @JsonProperty("suppleantRef")
+        val suppleantRef: String?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Election(
+        @JsonProperty("causeMandat")
+        val causeMandat: String?,
+
+        @JsonProperty("lieu")
+        val lieu: InfoLieuMandat?
+)
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class InfoNaissance(
