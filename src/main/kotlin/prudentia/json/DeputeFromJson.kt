@@ -34,7 +34,16 @@ data class InfoActeur(
         val mandats: Mandats,
 
         @JsonProperty("profession")
-        val profession: Profession
+        val profession: Profession,
+
+        @JsonProperty("uid")
+        val uid: UidDepute
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class UidDepute(
+        @JsonProperty("#text")
+        val id: String
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

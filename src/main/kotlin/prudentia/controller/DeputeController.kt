@@ -33,6 +33,16 @@ class DeputeController {
         return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur)
     }
 
+    /** Get one of deputes by code */
+    @RequestMapping("/depute/{id}")
+    fun getDepute(@PathVariable id: String) : List<Depute> {
+        val JSON = jacksonObjectMapper()
+        val file = File("src/main/files/AMO10_deputes_actifs_mandats_actifs_organes_XIV.json")
+        val result = JSON.readValue<Export>(file)
+        return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur).filter { it.uid == id }
+    }
+
+
     /** Cause an error to occur */
     @RequestMapping("/raiseError")
     fun raiseError() {

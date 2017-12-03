@@ -3,6 +3,7 @@ package prudentia.model
 import java.util.*
 
 data class Depute(
+        var uid: String,
         var civilite: String?,
         var prenom: String?,
         var nom: String?,

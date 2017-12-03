@@ -15,6 +15,7 @@ class DeputeGetAllSimpleInfoMapping {
 
     private fun mapDeputeSimpleInfo(acteur: InfoActeur): DeputeSimple {
         return DeputeSimple(
+                acteur.uid.id,
                 acteur.etatCivil.ident.civilite,
                 acteur.etatCivil.ident.prenom,
                 acteur.etatCivil.ident.nom,
