@@ -10,5 +10,9 @@ data class Mandat(
         var causeMandat: String?,
         var numDepartementMandat: String?,
         var departementMandat: String?,
-        var regionMandat: String?
+        var regionMandat: String?,
+        var uidOrgane: String?,
+        var codeTypeOrgane: String?,
+        var libelleOrgane: String?,
+        var libelleAbregeOrgane: String?
 )

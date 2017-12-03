@@ -16,5 +16,4 @@ data class Depute(
         var catSocPro: String?,
         var adresses: List<Adresse>?,
         var mandats: List<Mandat>?
-
 )

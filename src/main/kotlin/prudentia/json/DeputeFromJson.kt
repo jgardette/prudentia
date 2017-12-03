@@ -1,11 +1,13 @@
 package prudentia.json
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.springframework.web.bind.annotation.ExceptionHandler
 import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Export(
+data class ExportDepute(
         @JsonProperty("export")
         val export: Acteurs
 )
@@ -97,11 +99,21 @@ data class InfoMandat(
         val dateFin: Date?,
 
         @JsonProperty("election")
-        val election: Election?
+        val election: Election?,
 
-        //FIX%E : Suppleants ko pour le 418 acteur
+        @JsonProperty("organes")
+        val organes: Organes?
+
+//FIX%E : Suppleants ko pour le 418 acteur
         //@JsonProperty("suppleants")
         //val suppleants: Suppleant?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Organes(
+        @JsonProperty("organeRef")
+        @JsonFormat(with = arrayOf(JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY))
+        val organeRef: List<String>?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

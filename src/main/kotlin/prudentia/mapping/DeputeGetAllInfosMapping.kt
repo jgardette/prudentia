@@ -1,13 +1,17 @@
 package prudentia.mapping
 
-import prudentia.json.Adresse
-import prudentia.json.InfoActeur
-import prudentia.json.InfoMandat
-import prudentia.json.InfosAdresse
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import prudentia.json.*
 import prudentia.model.Depute
+import java.io.File
 import java.util.*
 
 class DeputeGetAllInfosMapping {
+    val JSON = jacksonObjectMapper()
+    val file = File("src/main/files/AMO10_deputes_actifs_mandats_actifs_organes_XIV.json")
+    var result = JSON.readValue<ExportOrgane>(file)
+
     fun mapDeputes(acteurs: List<InfoActeur>): List<Depute> {
         return acteurs.map { mapDeputeInfo(it) }
     }
@@ -51,6 +55,11 @@ class DeputeGetAllInfosMapping {
     }
 
     private fun mapMandat(infoMandat: InfoMandat): prudentia.model.Mandat {
+        //val JSON = jacksonObjectMapper()
+        //val file = File("src/main/files/AMO10_deputes_actifs_mandats_actifs_organes_XIV.json")
+        //val result = JSON.readValue<ExportOrgane>(file)
+        var infoOrgane: InfoOrgane = result.export.organes.infoOrgane.filter { it.uid == infoMandat.organes?.organeRef?.get(0) }.get(0)
+
         return prudentia.model.Mandat(
                 infoMandat.uid,
                 infoMandat.acteurRef,
@@ -59,7 +68,11 @@ class DeputeGetAllInfosMapping {
                 infoMandat.election?.causeMandat,
                 infoMandat.election?.lieu?.numDepartement,
                 infoMandat.election?.lieu?.departement,
-                infoMandat.election?.lieu?.region
+                infoMandat.election?.lieu?.region,
+                infoOrgane.uid,
+                infoOrgane.codeType,
+                infoOrgane.libelle,
+                infoOrgane.libelleAbrege
         )
     }
 }
