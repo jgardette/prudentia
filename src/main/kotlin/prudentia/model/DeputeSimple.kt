@@ -2,8 +2,8 @@ package prudentia.model
 
 import java.util.*
 
-data class Depute(
-        var uid: String,
+data class DeputeSimple(
+        var udi: String,
         var civilite: String?,
         var prenom: String?,
         var nom: String?,
@@ -14,6 +14,7 @@ data class Depute(
         var dateDeces: Date?,
         var professionLibelle: String?,
         var catSocPro: String?,
-        var adresses: List<Adresse>?,
-        var mandats: List<Mandat>?
+        var numberAdresses: Number?,
+        var numberMandats: Number?
+
 )
