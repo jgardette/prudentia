@@ -49,6 +49,9 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
+  // Logger dependencies
+  compile 'io.github.microutils:kotlin-logging:1.4.9'
+
   // Spring Dependencies
   compile("org.springframework.boot:spring-boot-starter-web") {
     exclude module: "spring-boot-starter-tomcat"

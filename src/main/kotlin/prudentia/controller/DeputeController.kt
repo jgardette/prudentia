@@ -2,6 +2,7 @@ package prudentia.controller
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import prudentia.json.ExportDepute
@@ -10,8 +11,8 @@ import prudentia.mapping.DeputeGetAllSimpleInfoMapping
 import prudentia.model.Depute
 import prudentia.model.DeputeSimple
 import java.io.File
-import javax.annotation.PostConstruct
 
+private val logger = KotlinLogging.logger {}
 
 @RestController
 class DeputeController {
@@ -23,24 +24,28 @@ class DeputeController {
     /** Get list of deputes */
     @RequestMapping("/deputes_simple")
     fun getDeputesSimpleInfo() : List<DeputeSimple> {
+        logger.info { "Recherche députés simple" }
         return DeputeGetAllSimpleInfoMapping().mapDeputes(result.export.acteurs.acteur)
     }
 
     /** Get list of deputes */
     @RequestMapping("/deputes")
     fun getDeputes() : List<Depute> {
+        logger.info { "Recherche députés détails" }
         return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur)
     }
 
     /** Get one of deputes by code */
     @RequestMapping("/depute/{id}")
     fun getDepute(@PathVariable id: String) : List<Depute> {
+        logger.info { "Récupération d'1 député" }
         return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur).filter { it.uid == id }
     }
 
     /** Get one of deputes by code */
     @RequestMapping("/deputes/search")
     fun getDeputeByMandatOrgane(@RequestParam organeLibelle: String) : List<Depute> {
+        logger.info { "Recherche d'un député" }
         return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur).filter {
             it.mandats != null && it.mandats?.filter {
                 it.libelleOrgane != null && it.libelleOrgane?.contains(organeLibelle) as Boolean
