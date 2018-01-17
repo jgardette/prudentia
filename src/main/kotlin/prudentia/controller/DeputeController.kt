@@ -3,6 +3,7 @@ package prudentia.controller
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import mu.KotlinLogging
+import org.eclipse.jetty.client.Origin
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import prudentia.json.ExportDepute
@@ -37,9 +38,9 @@ class DeputeController {
 
     /** Get one of deputes by code */
     @RequestMapping("/depute/{id}")
-    fun getDepute(@PathVariable id: String) : List<Depute> {
+    fun getDepute(@PathVariable id: String) : Depute {
         logger.info { "Récupération d'1 député" }
-        return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur).filter { it.uid == id }
+        return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur).filter { it.uid == id }.get(0)
     }
 
     /** Get one of deputes by code */
