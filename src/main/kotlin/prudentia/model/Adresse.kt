@@ -3,11 +3,11 @@ package prudentia.model
 import java.util.*
 
 data class Adresse(
-        var intitule: String?,
-        var numeroRue: String?,
-        var nomRue: String?,
-        var codePostal: String?,
-        var ville: String?,
-        var valeurElectronique: String?,
-        var numeroTelephone: String?
+        val intitule: String?,
+        val numeroRue: String?,
+        val nomRue: String?,
+        val codePostal: String?,
+        val ville: String?,
+        val valeurElectronique: String?,
+        val numeroTelephone: String?
 )
