@@ -26,7 +26,7 @@ class DeputeGetAllSimpleInfoMapping {
                 acteur.etatCivil.dateDeces,
                 acteur.profession.professionLibelle,
                 acteur.profession.infoProfessionInsee?.catSocPro,
-                acteur.adresses.adresse.size,
+                acteur.adresses?.adresse?.size,
                 acteur.mandats.infoMandat.size
         )
     }

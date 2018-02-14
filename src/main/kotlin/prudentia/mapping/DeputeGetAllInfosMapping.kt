@@ -29,13 +29,13 @@ class DeputeGetAllInfosMapping {
                 acteur.etatCivil.dateDeces,
                 acteur.profession.professionLibelle,
                 acteur.profession.infoProfessionInsee?.catSocPro,
-                mapDeputeAdresses(acteur.adresses.adresse),
+                mapDeputeAdresses(acteur.adresses?.adresse),
                 mapDeputeMandats(acteur.mandats.infoMandat)
         )
     }
 
-    private fun mapDeputeAdresses(adresses: List<InfosAdresse>): List<prudentia.model.Adresse> {
-        return adresses.map { mapAdresse(it) }
+    private fun mapDeputeAdresses(adresses: List<InfosAdresse>?): List<prudentia.model.Adresse>? {
+        return adresses?.map { mapAdresse(it) }
     }
 
     private fun mapAdresse(infoAdresse: InfosAdresse): prudentia.model.Adresse {

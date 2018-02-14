@@ -27,7 +27,7 @@ data class Acteur(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class InfoActeur(
         @JsonProperty("adresses")
-        val adresses: Adresse,
+        val adresses: Adresse?,
 
         @JsonProperty("etatCivil")
         val etatCivil: EtatCivil,
@@ -187,7 +187,8 @@ data class Identite(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Adresse(
         @JsonProperty("adresse")
-        val adresse: List<InfosAdresse>
+        @JsonFormat(with = arrayOf(JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY))
+        val adresse: List<InfosAdresse>?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
