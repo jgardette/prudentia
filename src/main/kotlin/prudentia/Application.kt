@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import prudentia.controller.DeputeController
+import prudentia.controller.QuestionController
+import prudentia.service.QuestionService
 
 
 /**
@@ -17,7 +19,11 @@ import prudentia.controller.DeputeController
 @Configuration
 internal class Application {
     @Bean
-    fun controller() = DeputeController()
+    fun deputeController() = DeputeController()
+    @Bean
+    fun questionController() = QuestionController()
+    @Bean
+    fun questionService() = QuestionService()
 
 
     @Bean
