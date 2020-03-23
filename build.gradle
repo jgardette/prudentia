@@ -1,5 +1,5 @@
 buildscript {
-  ext.kotlin_version = '1.1.50'
+  ext.kotlin_version = '1.3.70'
 
   repositories {
     jcenter()
@@ -12,7 +12,7 @@ buildscript {
     // Needed for the 'kotlin' plugin
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     // Needed for the 'org.springframework.boot' plugin
-    classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE"
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.5.RELEASE"
     // Needed for the 'kotlin-spring' plugin
     classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
     // Needed for Junit test
@@ -33,6 +33,8 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'kotlin-spring'
 // Allows tests
 apply plugin: 'org.junit.platform.gradle.plugin'
+// Spring depedencies
+apply plugin: 'io.spring.dependency-management'
 
 
 repositories {
@@ -70,21 +72,21 @@ dependencies {
   runtime "com.fasterxml.jackson.module:jackson-module-kotlin"
 
   // Tests dependencies
-  testRuntime "org.junit.platform:junit-platform-launcher:1.0.2"
-  testRuntime "org.junit.platform:junit-platform-console:1.0.2"
-  testRuntime "org.junit.jupiter:junit-jupiter-api:5.0.1"
-  testRuntime "org.junit.vintage:junit-vintage-engine:4.12.1"
+  testRuntime "org.junit.platform:junit-platform-launcher:1.6.1"
+  testRuntime "org.junit.platform:junit-platform-console:1.6.1"
+  testRuntime "org.junit.jupiter:junit-jupiter-api:5.6.1"
+  testRuntime "org.junit.vintage:junit-vintage-engine:5.6.1"
 
   testCompile "org.amshove.kluent:kluent:1.30"
-  testCompile "com.nhaarman:mockito-kotlin:1.5.0"
-  testCompile "junit:junit:4.12"
-  testCompile "org.mockito:mockito-core:2.7.21"
+  testCompile "com.nhaarman:mockito-kotlin:1.6.0"
+  testCompile "junit:junit:4.13"
+  testCompile "org.mockito:mockito-core:3.3.3"
   testCompile "org.assertj:assertj-core:3.6.0"
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = "3.5"
-}
+//task wrapper(type: Wrapper) {
+//  gradleVersion = "6.2.2"
+//}
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
