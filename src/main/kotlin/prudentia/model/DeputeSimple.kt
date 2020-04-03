@@ -11,7 +11,6 @@ data class DeputeSimple(
         val villeNais: String?,
         val departementNaissance: String?,
         val paysNaissance: String?,
-        val dateDeces: Date?,
         val professionLibelle: String?,
         val catSocPro: String?,
         var numberAdresses: Number?,

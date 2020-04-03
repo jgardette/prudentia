@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import prudentia.json.ExportDepute
+import prudentia.json.Acteur
 import prudentia.mapping.DeputeGetAllInfosMapping
 import prudentia.mapping.DeputeGetAllSimpleInfoMapping
 import prudentia.mapping.DeputeGetListMapping
@@ -19,41 +19,63 @@ private val logger = KotlinLogging.logger {}
 @RestController
 class DeputeController {
 
-    val JSON = jacksonObjectMapper()
-    val file = File("src/main/files/AMO10_deputes_actifs_mandats_actifs_organes_XIV.json")
-    val result = JSON.readValue<ExportDepute>(file)
+    var deputesList = setDeputesList()
+
+    fun setDeputesList() : List<Acteur> {
+        var result = listOf<Acteur>()
+        val JSON = jacksonObjectMapper()
+
+        File("src/main/files/deputes").listFiles().forEach {
+            result = result.plus(JSON.readValue<Acteur>(it))
+        }
+        return result
+    }
+
+    fun setOrganesList() {
+
+    }
 
     /** Get list of deputes */
     @RequestMapping("/deputes_simple")
     fun getDeputesSimpleInfo() : List<DeputeSimple> {
         logger.info { "Recherche députés simple" }
-        return DeputeGetAllSimpleInfoMapping().mapDeputes(result.export.acteurs.acteur)
+        var result = listOf<DeputeSimple>()
+        deputesList.forEach {
+            result += DeputeGetAllSimpleInfoMapping().mapDeputes(it.infos)
+        }
+        return result
     }
 
     /** Get list of deputes */
     @RequestMapping("/deputes")
     fun getDeputes() : List<DeputeList> {
         logger.info { "Recherche list députés" }
-        return DeputeGetListMapping().mapDeputes(result.export.acteurs.acteur)
+        var result = listOf<DeputeList>()
+        deputesList.forEach {
+            DeputeGetListMapping().mapDeputes(it.infos)
+        }
+        return result
     }
 
+/*
     /** Get one of deputes by code */
     @RequestMapping("/depute/{id}")
     fun getDepute(@PathVariable id: String) : Depute {
         logger.info { "Récupération d'1 député" }
-        return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur).filter { it.uid == id }.get(0)
+        return DeputeGetAllInfosMapping().mapDeputes(deputesList).filter { it.uid == id }.get(0)
     }
 
     /** Get one of deputes by code */
     @RequestMapping("/deputes/search")
     fun getDeputeByMandatOrgane(@RequestParam organeLibelle: String) : List<Depute> {
         logger.info { "Recherche d'un député" }
-        return DeputeGetAllInfosMapping().mapDeputes(result.export.acteurs.acteur).filter {
+        return DeputeGetAllInfosMapping().mapDeputes(deputesList).filter {
             it.mandats != null && it.mandats?.filter {
                 it.libelleOrgane != null && it.libelleOrgane?.contains(organeLibelle) as Boolean
             }?.any() as Boolean
         }
     }
+ */
 
     /** Cause an error to occur */
     @RequestMapping("/raiseError")

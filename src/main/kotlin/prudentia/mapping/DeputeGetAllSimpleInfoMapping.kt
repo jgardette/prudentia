@@ -9,8 +9,8 @@ import prudentia.model.DeputeSimple
 import java.util.*
 
 class DeputeGetAllSimpleInfoMapping {
-    fun mapDeputes(acteurs: List<InfoActeur>): List<DeputeSimple> {
-        return acteurs.map { mapDeputeSimpleInfo(it) }
+    fun mapDeputes(acteur: InfoActeur): DeputeSimple {
+        return mapDeputeSimpleInfo(acteur)
     }
 
     private fun mapDeputeSimpleInfo(acteur: InfoActeur): DeputeSimple {
@@ -20,12 +20,11 @@ class DeputeGetAllSimpleInfoMapping {
                 acteur.etatCivil.ident.prenom,
                 acteur.etatCivil.ident.nom,
                 acteur.etatCivil.infoNaissance?.dateNaissance,
-                acteur.etatCivil.infoNaissance?.villeNais,
-                acteur.etatCivil.infoNaissance?.departementNaissance,
+                FormatUtil.returnDisplayString(acteur.etatCivil.infoNaissance?.villeNaissance),
+                FormatUtil.returnDisplayString(acteur.etatCivil.infoNaissance?.departementNaissance),
                 acteur.etatCivil.infoNaissance?.paysNaissance,
-                acteur.etatCivil.dateDeces,
-                acteur.profession.professionLibelle,
-                acteur.profession.infoProfessionInsee?.catSocPro,
+                FormatUtil.returnDisplayString(acteur.profession.professionLibelle),
+                FormatUtil.returnDisplayString(acteur.profession.infoProfessionInsee?.catSocPro),
                 acteur.adresses?.adresse?.size,
                 acteur.mandats.infoMandat.size
         )

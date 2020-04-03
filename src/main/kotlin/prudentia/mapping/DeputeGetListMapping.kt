@@ -13,8 +13,8 @@ class DeputeGetListMapping {
     val file = File("src/main/files/AMO10_deputes_actifs_mandats_actifs_organes_XIV.json")
     var result = JSON.readValue<ExportOrgane>(file)
 
-    fun mapDeputes(acteurs: List<InfoActeur>): List<DeputeList> {
-        return acteurs.map { mapDeputeInfo(it) }
+    fun mapDeputes(acteur: InfoActeur): DeputeList {
+        return mapDeputeInfo(acteur)
     }
 
     private fun mapDeputeInfo(acteur: InfoActeur): DeputeList {
@@ -24,8 +24,8 @@ class DeputeGetListMapping {
                 acteur.etatCivil.ident.prenom,
                 acteur.etatCivil.ident.nom,
                 acteur.etatCivil.infoNaissance?.dateNaissance,
-                acteur.profession.professionLibelle,
-                acteur.profession.infoProfessionInsee?.catSocPro,
+                FormatUtil.returnDisplayString(acteur.profession.professionLibelle),
+                FormatUtil.returnDisplayString(acteur.profession.infoProfessionInsee?.catSocPro),
                 mapDeputeAdresses(acteur.adresses?.adresse),
                 mapDeputeMandats(acteur.mandats.infoMandat)
         )

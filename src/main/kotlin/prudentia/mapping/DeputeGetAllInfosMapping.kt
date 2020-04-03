@@ -23,12 +23,11 @@ class DeputeGetAllInfosMapping {
                 acteur.etatCivil.ident.prenom,
                 acteur.etatCivil.ident.nom,
                 acteur.etatCivil.infoNaissance?.dateNaissance,
-                acteur.etatCivil.infoNaissance?.villeNais,
-                acteur.etatCivil.infoNaissance?.departementNaissance,
+                FormatUtil.returnDisplayString(acteur.etatCivil.infoNaissance?.villeNaissance),
+                FormatUtil.returnDisplayString(acteur.etatCivil.infoNaissance?.departementNaissance),
                 acteur.etatCivil.infoNaissance?.paysNaissance,
-                acteur.etatCivil.dateDeces,
-                acteur.profession.professionLibelle,
-                acteur.profession.infoProfessionInsee?.catSocPro,
+                FormatUtil.returnDisplayString(acteur.profession.professionLibelle),
+                FormatUtil.returnDisplayString(acteur.profession.infoProfessionInsee?.catSocPro),
                 mapDeputeAdresses(acteur.adresses?.adresse),
                 mapDeputeMandats(acteur.mandats.infoMandat)
         )

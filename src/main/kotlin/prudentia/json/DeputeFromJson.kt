@@ -1,27 +1,28 @@
 package prudentia.json
 
-import com.fasterxml.jackson.annotation.JsonFormat
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.*
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import java.util.*
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class ExportDepute(
-        @JsonProperty("export")
-        val export: Acteurs
-)
+// @JsonIgnoreProperties(ignoreUnknown = true)
+// data class ExportDepute(
+//         @JsonProperty("export")
+//         val export: Acteurs
+// )
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class Acteurs(
-        @JsonProperty("acteurs")
-        val acteurs: Acteur
-)
+// @JsonIgnoreProperties(ignoreUnknown = true)
+// data class Acteurs(
+//         @JsonProperty("acteurs")
+//         @JsonProperty("acteurs")
+//         val acteurs: Acteur
+// )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Acteur(
         @JsonProperty("acteur")
-        val acteur: List<InfoActeur>
+        val infos: InfoActeur
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -53,9 +54,6 @@ data class EtatCivil(
         @JsonProperty("ident")
         val ident: Identite,
 
-        @JsonProperty("dateDeces")
-        val dateDeces: Date?,
-
         @JsonProperty("infoNaissance")
         val infoNaissance: InfoNaissance?
 )
@@ -69,7 +67,7 @@ data class Mandats(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Profession(
         @JsonProperty("libelleCourant")
-        val professionLibelle: String?,
+        val professionLibelle: Any?,
 
         @JsonProperty("socProcINSEE")
         val infoProfessionInsee: InfoProfessionInsee?
@@ -78,10 +76,10 @@ data class Profession(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class InfoProfessionInsee(
         @JsonProperty("catSocPro")
-        val catSocPro: String?,
+        val catSocPro: Any?,
 
         @JsonProperty("famSocPro")
-        val famSocPro: String?
+        val famSocPro: Any?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -104,7 +102,7 @@ data class InfoMandat(
         @JsonProperty("organes")
         val organes: Organes?
 
-//FIX%E : Suppleants ko pour le 418 acteur
+//FIXME : Suppleants ko pour le 418 acteur
         //@JsonProperty("suppleants")
         //val suppleants: Suppleant?
 )
@@ -157,15 +155,16 @@ data class Election(
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class InfoNaissance(
+data class InfoNaissance (
         @JsonProperty("dateNais")
         val dateNaissance: Date?,
 
-        @JsonProperty("depNais")
-        val departementNaissance: String?,
-
         @JsonProperty("villeNais")
-        val villeNais: String?,
+        val villeNaissance: Any?,
+
+
+        @JsonProperty("depNais")
+        val departementNaissance: Any?,
 
         @JsonProperty("paysNais")
         val paysNaissance: String?
