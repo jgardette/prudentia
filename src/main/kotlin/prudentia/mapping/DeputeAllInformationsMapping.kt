@@ -4,26 +4,28 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import prudentia.json.*
 import prudentia.model.Depute
-import prudentia.model.DeputeList
 import java.io.File
 import java.util.*
 
-class DeputeGetListMapping {
+class DeputeAllInformationsMapping {
     val JSON = jacksonObjectMapper()
     val file = File("src/main/files/AMO10_deputes_actifs_mandats_actifs_organes_XIV.json")
     var result = JSON.readValue<ExportOrgane>(file)
 
-    fun mapDeputes(acteur: InfoActeur): DeputeList {
-        return mapDeputeInfo(acteur)
+    fun mapDeputes(acteurs: List<InfoActeur>): List<Depute> {
+        return acteurs.map { mapDeputeInfo(it) }
     }
 
-    private fun mapDeputeInfo(acteur: InfoActeur): DeputeList {
-        return DeputeList(
+    private fun mapDeputeInfo(acteur: InfoActeur): Depute {
+        return Depute(
                 acteur.uid.id,
                 acteur.etatCivil.ident.civilite,
                 acteur.etatCivil.ident.prenom,
                 acteur.etatCivil.ident.nom,
                 acteur.etatCivil.infoNaissance?.dateNaissance,
+                FormatUtil.returnDisplayString(acteur.etatCivil.infoNaissance?.villeNaissance),
+                FormatUtil.returnDisplayString(acteur.etatCivil.infoNaissance?.departementNaissance),
+                acteur.etatCivil.infoNaissance?.paysNaissance,
                 FormatUtil.returnDisplayString(acteur.profession.professionLibelle),
                 FormatUtil.returnDisplayString(acteur.profession.infoProfessionInsee?.catSocPro),
                 mapDeputeAdresses(acteur.adresses?.adresse),
@@ -52,6 +54,9 @@ class DeputeGetListMapping {
     }
 
     private fun mapMandat(infoMandat: InfoMandat): prudentia.model.Mandat {
+        //val JSON = jacksonObjectMapper()
+        //val file = File("src/main/files/AMO10_deputes_actifs_mandats_actifs_organes_XIV.json")
+        //val result = JSON.readValue<ExportOrgane>(file)
         var infoOrgane: InfoOrgane = result.export.organes.infoOrgane.filter { it.uid == infoMandat.organes?.organeRef?.get(0) }.get(0)
 
         return prudentia.model.Mandat(

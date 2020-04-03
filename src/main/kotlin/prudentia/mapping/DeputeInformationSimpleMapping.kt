@@ -1,20 +1,15 @@
 package prudentia.mapping
 
-import prudentia.json.Adresse
 import prudentia.json.InfoActeur
-import prudentia.json.InfoMandat
-import prudentia.json.InfosAdresse
-import prudentia.model.Depute
-import prudentia.model.DeputeSimple
-import java.util.*
+import prudentia.model.DeputeRecherche
 
-class DeputeGetAllSimpleInfoMapping {
-    fun mapDeputes(acteur: InfoActeur): DeputeSimple {
+class DeputeInformationSimpleMapping {
+    fun mapDeputes(acteur: InfoActeur): DeputeRecherche {
         return mapDeputeSimpleInfo(acteur)
     }
 
-    private fun mapDeputeSimpleInfo(acteur: InfoActeur): DeputeSimple {
-        return DeputeSimple(
+    private fun mapDeputeSimpleInfo(acteur: InfoActeur): DeputeRecherche {
+        return DeputeRecherche(
                 acteur.uid.id,
                 acteur.etatCivil.ident.civilite,
                 acteur.etatCivil.ident.prenom,

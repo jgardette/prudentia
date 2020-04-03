@@ -6,12 +6,8 @@ import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import prudentia.json.Acteur
-import prudentia.mapping.DeputeGetAllInfosMapping
-import prudentia.mapping.DeputeGetAllSimpleInfoMapping
-import prudentia.mapping.DeputeGetListMapping
-import prudentia.model.Depute
-import prudentia.model.DeputeList
-import prudentia.model.DeputeSimple
+import prudentia.mapping.DeputeInformationSimpleMapping
+import prudentia.model.DeputeRecherche
 import java.io.File
 
 private val logger = KotlinLogging.logger {}
@@ -36,23 +32,12 @@ class DeputeController {
     }
 
     /** Get list of deputes */
-    @RequestMapping("/deputes_simple")
-    fun getDeputesSimpleInfo() : List<DeputeSimple> {
-        logger.info { "Recherche députés simple" }
-        var result = listOf<DeputeSimple>()
-        deputesList.forEach {
-            result += DeputeGetAllSimpleInfoMapping().mapDeputes(it.infos)
-        }
-        return result
-    }
-
-    /** Get list of deputes */
     @RequestMapping("/deputes")
-    fun getDeputes() : List<DeputeList> {
-        logger.info { "Recherche list députés" }
-        var result = listOf<DeputeList>()
+    fun getDeputesSimpleInfo() : List<DeputeRecherche> {
+        logger.info { "Recherche de l'ensemble des deputes" }
+        var result = listOf<DeputeRecherche>()
         deputesList.forEach {
-            DeputeGetListMapping().mapDeputes(it.infos)
+            result += DeputeInformationSimpleMapping().mapDeputes(it.infos)
         }
         return result
     }
